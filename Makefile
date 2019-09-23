@@ -1,12 +1,15 @@
-.PHONY : all echo
+.PHONY : clean
 
-all : venv
-	echo 'all done!'
+dist : venv
+	source venv/bin/activate && python setup.py sdist
 
-venv : echo
+venv : 
 	python3 -m venv venv
 	source venv/bin/activate && pip install --upgrade pip
-	echo 'pip upgraded'
 
-echo :
-	echo "gettin' ready"
+clean :
+	-rm -rf build dist testomundo.egg-info
+	-rm -rf venv
+	-find . -name '*~' -delete
+	-find . -name '#*' -delete
+
